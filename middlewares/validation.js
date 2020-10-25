@@ -35,16 +35,28 @@ const isValidName = async (req, res, next) => {
   return next();
 };
 
-const quantityValue = (quantity) => quantity > 0;
+const quantityValue = (arrQuantity) => arrQuantity.map(({ quantity }) => quantity > 0);
 
-const checkQuantityNumber = (quantity) => typeof quantity === 'number';
+const checkQuantityNumber = (arrQuantity) => arrQuantity.map(({ quantity }) => typeof quantity === 'number');
 
 const isValidQuantity = (req, res, next) => {
-  const { quantity } = req.body;
+  let quantity = [];
+  let message = '';
+  let isSales;
 
-  if (!checkQuantityNumber(quantity)) return response422(res, '"quantity" must be a number');
+  if (req.baseUrl === '/sales') {
+    isSales = true;
+    quantity = req.body.map(({ quantity }) => ({ quantity }));
+  } else {
+    isSales = false;
+    quantity.push({ quantity: req.body.quantity });
+  }
+  
+  message = isSales ? 'Wrong product ID or invalid quantity' : '"quantity" must be a number';
+  if (!checkQuantityNumber(quantity).every((item) => item)) return response422(res, message);
 
-  if (!quantityValue(quantity)) return response422(res, '"quantity" must be larger than or equal to 1');
+  message = isSales ? 'Wrong product ID or invalid quantity' : '"quantity" must be larger than or equal to 1';
+  if (!quantityValue(quantity).every((item) => item)) return response422(res, message);
 
   return next();
 };
