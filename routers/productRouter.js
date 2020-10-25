@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/',
   middlewares.isValidName,
   middlewares.isValidQuantity,
-  productController.add
+  productController.add,
 );
 
 router.get('/', productController.getAll);
@@ -17,7 +17,7 @@ router.get('/:id', productController.show);
 router.put('/:id',
   middlewares.isValidName,
   middlewares.isValidQuantity,
-  productController.edit
+  productController.edit,
 );
 
 router.delete('/:id', productController.remove);

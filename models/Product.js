@@ -5,7 +5,7 @@ const add = async (name, quantity) => {
   try {
     const db = await conn();
     const result = await db.collection('products').insertOne({ name, quantity });
-  
+
     return result.ops[0];
   } catch (error) {
     return null;
@@ -47,10 +47,10 @@ const edit = async (id, name, quantity) => {
       { _id: ObjectId(id) },
       {
         $set: {
-          name, 
-          quantity
-        }
-      }
+          name,
+          quantity,
+        },
+      },
     );
   } catch (error) {
     return null;
@@ -60,7 +60,7 @@ const edit = async (id, name, quantity) => {
 const remove = async (id) => {
   try {
     const db = await conn();
-    return await db.collection('products').deleteOne({ _id: ObjectId(id) })
+    return await db.collection('products').deleteOne({ _id: ObjectId(id) });
   } catch (error) {
     return null;
   }
