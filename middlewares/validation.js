@@ -6,15 +6,16 @@ const checkNameExists = async (id, name) => {
 
     if (!result) return true;
 
-    if (id && id !== result._id) return true;
+    const { _id } = result
+    if (id && id !== _id) return true;
 
     return false;
   } catch (error) {
     return null;
   }
-}
+};
 
-const nameSize = (name) => !name || name.length < 5
+const nameSize = (name) => !name || name.length < 5;
 
 const isValidName = async (req, res, next) => {
   const { id } = req.params;
