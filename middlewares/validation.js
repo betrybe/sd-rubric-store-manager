@@ -1,6 +1,6 @@
 const Product = require('../models/Product');
 
-const response422 = (msg) => {
+const response422 = (res, msg) => {
   const err = { code: 'invalid_data' };
   err.message = msg;
 
@@ -28,9 +28,9 @@ const isValidName = async (req, res, next) => {
   const { id } = req.params;
   const { name } = req.body;
 
-  if (nameSize(name)) return response422('"name" length must be at least 5 characters long');
+  if (nameSize(name)) return response422(res, '"name" length must be at least 5 characters long');
 
-  if (!await checkNameExists(id, name)) return response422('Product already exists');
+  if (!await checkNameExists(id, name)) return response422(res, 'Product already exists');
 
   return next();
 };
@@ -42,9 +42,9 @@ const checkQuantityNumber = (quantity) => typeof quantity === 'number';
 const isValidQuantity = (req, res, next) => {
   const { quantity } = req.body;
 
-  if (!checkQuantityNumber(quantity)) return response422('"quantity" must be a number');
+  if (!checkQuantityNumber(quantity)) return response422(res, '"quantity" must be a number');
 
-  if (!quantityValue(quantity)) return response422('"quantity" must be larger than or equal to 1');
+  if (!quantityValue(quantity)) return response422(res, '"quantity" must be larger than or equal to 1');
 
   return next();
 };
