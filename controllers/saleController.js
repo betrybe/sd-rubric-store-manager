@@ -1,6 +1,6 @@
 const Sale = require('../models/Sale');
 
-const add = async (req, res) => {
+const addSale = async (req, res) => {
   try {
     const sale = await Sale.add(req.body);
 
@@ -10,7 +10,7 @@ const add = async (req, res) => {
   }
 };
 
-const getAll = async (req, res) => {
+const getAllSale = async (req, res) => {
   try {
     const sales = await Sale.getAll();
 
@@ -20,7 +20,7 @@ const getAll = async (req, res) => {
   }
 };
 
-const show = async (req, res) => {
+const showSale = async (req, res) => {
   try {
     const sale = await Sale.show(req.params.id);
 
@@ -36,7 +36,7 @@ const show = async (req, res) => {
   }
 };
 
-const edit = async (req, res) => {
+const editSale = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -48,7 +48,7 @@ const edit = async (req, res) => {
   }
 };
 
-const remove = async (req, res) => {
+const removeSale = async (req, res) => {
   try {
     const { id } = req.params;
     const existsSale = await Sale.show(id);
@@ -69,9 +69,9 @@ const remove = async (req, res) => {
 };
 
 module.exports = {
-  add,
-  getAll,
-  show,
-  edit,
-  remove,
+  addSale,
+  getAllSale,
+  showSale,
+  editSale,
+  removeSale,
 };

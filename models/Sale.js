@@ -36,7 +36,7 @@ const edit = async (id, itensSold) => {
     const db = await conn();
     return await db.collection('sales').updateOne(
       { _id: ObjectId(id) },
-      { $set: { itensSold }, },
+      { $set: { itensSold } },
     );
   } catch (error) {
     return null;

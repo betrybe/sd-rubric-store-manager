@@ -6,18 +6,18 @@ const router = express.Router();
 
 router.post('/',
   middlewares.isValidQuantity,
-  saleController.add,
+  saleController.addSale,
 );
 
-router.get('/', saleController.getAll);
+router.get('/', saleController.getAllSale);
 
-router.get('/:id', saleController.show);
+router.get('/:id', saleController.showSale);
 
 router.put('/:id',
   middlewares.isValidQuantity,
-  saleController.edit,
+  saleController.editSale,
 );
 
-router.delete('/:id', saleController.remove);
+router.delete('/:id', saleController.removeSale);
 
 module.exports = router;
