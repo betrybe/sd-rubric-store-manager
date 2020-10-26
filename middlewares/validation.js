@@ -40,23 +40,23 @@ const quantityValue = (arrQuantity) => arrQuantity.map(({ quantity }) => quantit
 const checkQuantityNumber = (arrQuantity) => arrQuantity.map(({ quantity }) => typeof quantity === 'number');
 
 const isValidQuantity = (req, res, next) => {
-  let quantity = [];
+  let quantityArr = [];
   let message = '';
   let isSales;
 
   if (req.baseUrl === '/sales') {
     isSales = true;
-    quantity = req.body.map(({ quantity }) => ({ quantity }));
+    quantityArr = req.body.map(({ quantity }) => ({ quantity }));
   } else {
     isSales = false;
-    quantity.push({ quantity: req.body.quantity });
+    quantityArr.push({ quantity: req.body.quantity });
   }
-  
+
   message = isSales ? 'Wrong product ID or invalid quantity' : '"quantity" must be a number';
-  if (!checkQuantityNumber(quantity).every((item) => item)) return response422(res, message);
+  if (!checkQuantityNumber(quantityArr).every((item) => item)) return response422(res, message);
 
   message = isSales ? 'Wrong product ID or invalid quantity' : '"quantity" must be larger than or equal to 1';
-  if (!quantityValue(quantity).every((item) => item)) return response422(res, message);
+  if (!quantityValue(quantityArr).every((item) => item)) return response422(res, message);
 
   return next();
 };

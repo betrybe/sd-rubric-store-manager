@@ -22,7 +22,7 @@ const show = async (req, res) => {
 
     if (sale) return res.status(200).json(sale);
 
-    res.status(404).json({ code: 'not_found', message: 'Sale not found', });
+    res.status(404).json({ code: 'not_found', message: 'Sale not found' });
   } catch (error) {
     return res.status(500).json({ err: { message: 'Fatal Error' } });
   }
@@ -41,7 +41,7 @@ const remove = async (req, res) => {
   try {
     const { id } = req.params;
 
-    if (!await Sale.show(id)) return res.status(422).json({ code: 'invalid_data', message: 'Wrong sale ID format', });
+    if (!await Sale.show(id)) return res.status(422).json({ code: 'invalid_data', message: 'Wrong sale ID format' });
     
     await show(req, res);
     await Sale.remove(id);
