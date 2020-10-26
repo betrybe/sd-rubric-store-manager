@@ -41,8 +41,7 @@ const remove = async (req, res) => {
   try {
     const { id } = req.params;
 
-    if (!await Sale.show(id)) return res.status(422).json({ code: 'invalid_data', message: 'Wrong sale ID format' });
-    
+    if (!await Sale.show(id)) return res.status(422).json({ code: 'invalid_data', message: 'Wrong sale ID format' }); 
     await show(req, res);
     await Sale.remove(id);
   } catch (error) {

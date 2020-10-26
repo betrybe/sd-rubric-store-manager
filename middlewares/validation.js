@@ -39,7 +39,7 @@ const quantityValue = (arrQuantity) => arrQuantity.map(({ quantity }) => quantit
 
 const checkQuantityNumber = (arrQuantity) => arrQuantity.map(({ quantity }) => typeof quantity === 'number');
 
-const testQuantitys = (isSales) => {
+const testQuantitys = (isSales, quantityArr, res) => {
   let message = '';
 
   message = isSales ? 'Wrong product ID or invalid quantity' : '"quantity" must be a number';
@@ -63,7 +63,7 @@ const isValidQuantity = (req, res, next) => {
     quantityArr.push({ quantity: req.body.quantity });
   }
 
-  if(testQuantitys(isSales)) next();
+  if (testQuantitys(isSales, quantityArr, res)) next();
 };
 
 module.exports = {
