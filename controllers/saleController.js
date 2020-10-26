@@ -1,6 +1,6 @@
 const Sale = require('../models/Sale');
 
-const addSale = async (req, res) => {
+const add = async (req, res) => {
   try {
     const sale = await Sale.add(req.body);
 
@@ -10,18 +10,18 @@ const addSale = async (req, res) => {
   }
 };
 
-const getAllSale = async (req, res) => {
-  try {
+const getAll = async (req, res) => {
+  // try {
     const sales = await Sale.getAll();
 
     return res.status(200).json({ sales });
-  } catch (error) {
-    return res.status(500).json({ err: { message: 'Fatal Error' } });
-  }
+  // } catch (error) {
+  //   return res.status(500).json({ err: { message: 'Fatal Error' } });
+  // }
 };
 
-const showSale = async (req, res) => {
-  try {
+const show = async (req, res) => {
+  // try {
     const sale = await Sale.show(req.params.id);
 
     if (sale) return res.status(200).json(sale);
@@ -31,12 +31,12 @@ const showSale = async (req, res) => {
       message: 'Sale not found',
     };
     return res.status(404).json({ err });
-  } catch (error) {
-    return res.status(500).json({ err: { message: 'Fatal Error' } });
-  }
+  // } catch (error) {
+  //   return res.status(500).json({ err: { message: 'Fatal Error' } });
+  // }
 };
 
-const editSale = async (req, res) => {
+const edit = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -48,7 +48,7 @@ const editSale = async (req, res) => {
   }
 };
 
-const removeSale = async (req, res) => {
+const remove = async (req, res) => {
   try {
     const { id } = req.params;
     const existsSale = await Sale.show(id);
@@ -69,9 +69,9 @@ const removeSale = async (req, res) => {
 };
 
 module.exports = {
-  addSale,
-  getAllSale,
-  showSale,
-  editSale,
-  removeSale,
+  add,
+  getAll,
+  show,
+  edit,
+  remove,
 };
