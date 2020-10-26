@@ -3,10 +3,7 @@ const { ObjectId } = require('mongodb');
 
 const add = async (itensSold) => {
   try {
-    const db = await conn();
-    const result = await db.collection('sales').insertOne({ itensSold });
-
-    return result.ops[0];
+    return await await conn().collection('sales').insertOne({ itensSold }).ops[0];
   } catch (error) {
     return null;
   }
@@ -14,9 +11,7 @@ const add = async (itensSold) => {
 
 const getAll = async () => {
   try {
-    const db = await conn();
-    const data = await db.collection('sales').find({}).toArray();
-    return data;
+    return await conn().collection('sales').find({}).toArray();
   } catch (error) {
     return null;
   }
@@ -24,8 +19,7 @@ const getAll = async () => {
 
 const show = async (id) => {
   try {
-    const db = await conn();
-    return await db.collection('sales').findOne(ObjectId(id));
+    return await conn().collection('sales').findOne(ObjectId(id));
   } catch (error) {
     return null;
   }
@@ -33,8 +27,7 @@ const show = async (id) => {
 
 const edit = async (id, itensSold) => {
   try {
-    const db = await conn();
-    return await db.collection('sales').updateOne(
+    return await conn().collection('sales').updateOne(
       { _id: ObjectId(id) },
       { $set: { itensSold } },
     );
@@ -45,8 +38,7 @@ const edit = async (id, itensSold) => {
 
 const remove = async (id) => {
   try {
-    const db = await conn();
-    return await db.collection('sales').deleteOne({ _id: ObjectId(id) });
+    return await conn().collection('sales').deleteOne({ _id: ObjectId(id) });
   } catch (error) {
     return null;
   }
