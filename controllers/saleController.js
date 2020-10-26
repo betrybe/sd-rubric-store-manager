@@ -4,7 +4,7 @@ const add = async (req, res) => {
   try {
     res.status(200).json(await Sale.add(req.body));
   } catch (error) {
-    return res.status(500).json({ err: { message: 'Fatal Error' } });
+    return res.status(500).json({ err: { message: 'Fatal error' } });
   }
 };
 
@@ -12,7 +12,7 @@ const getAll = async (req, res) => {
   try {
     res.status(200).json({ sales: await Sale.getAll() });
   } catch (error) {
-    return res.status(500).json({ err: { message: 'Fatal Error' } });
+    return res.status(500).json({ err: { message: 'Fatal error' } });
   }
 };
 
@@ -24,7 +24,7 @@ const show = async (req, res) => {
 
     res.status(404).json({ code: 'not_found', message: 'Sale not found' });
   } catch (error) {
-    return res.status(500).json({ err: { message: 'Fatal Error' } });
+    return res.status(500).json({ err: { message: 'Fatal error' } });
   }
 };
 
@@ -33,7 +33,7 @@ const edit = async (req, res) => {
     await Sale.edit(req.params, req.body);
     show(req, res);
   } catch (error) {
-    return res.status(500).json({ err: { message: 'Fatal Error' } });
+    return res.status(500).json({ err: { message: 'Fatal error' } });
   }
 };
 
@@ -42,11 +42,10 @@ const remove = async (req, res) => {
     const { id } = req.params;
 
     if (!await Sale.show(id)) return res.status(422).json({ code: 'invalid_data', message: 'Wrong sale ID format' });
-    
     await show(req, res);
     await Sale.remove(id);
   } catch (error) {
-    return res.status(500).json({ err: { message: 'Fatal Error' } });
+    return res.status(500).json({ err: { message: 'Fatal error' } });
   }
 };
 
