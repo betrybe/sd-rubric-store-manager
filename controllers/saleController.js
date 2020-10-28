@@ -59,10 +59,10 @@ const remove = async (req, res) => {
         message: 'Wrong sale ID format',
       };
       return res.status(422).json({ err });
-    } else {
-      await show(req, res);
-      return await Sale.remove(id);
     }
+    
+    await show(req, res);
+    return await Sale.remove(id);
   } catch (error) {
     return res.status(500).json({ err: { message: 'Fatal Error' } });
   }

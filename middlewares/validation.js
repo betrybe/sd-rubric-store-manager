@@ -42,7 +42,7 @@ const checkQuantityNumber = (arrQuantity) => arrQuantity.map(({ quantity }) => t
 const isValidQuantity = (req, res, next) => {
   let quantityArr = [];
   let isSales;
-  
+  let message = '';
 
   if (req.baseUrl === '/sales') {
     isSales = true;
@@ -56,7 +56,6 @@ const isValidQuantity = (req, res, next) => {
 
   message = isSales ? 'Wrong product ID or invalid quantity' : '"quantity" must be larger than or equal to 1';
   if (!quantityValue(quantityArr).every((item) => item)) return response422(res, message);
-  
   return next();
 };
 
