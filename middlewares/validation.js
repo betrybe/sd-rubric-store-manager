@@ -56,6 +56,7 @@ const isValidQuantity = (req, res, next) => {
 
   message = isSales ? 'Wrong product ID or invalid quantity' : '"quantity" must be larger than or equal to 1';
   if (!quantityValue(quantityArr).every((item) => item)) return response422(res, message);
+  
   return next();
 };
 
