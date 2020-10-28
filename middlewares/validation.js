@@ -42,7 +42,7 @@ const checkQuantityNumber = (arrQuantity) => arrQuantity.map(({ quantity }) => t
 const mountArr = (isSales, reqData) => {
   let quantityArr = [];
 
-  if( isSales) quantityArr = reqData.map(({ quantity }) => ({ quantity }));
+  if (isSales) quantityArr = reqData.map(({ quantity }) => ({ quantity }));
   else quantityArr.push({ quantity: reqData.quantity });
   return quantityArr;
 };
