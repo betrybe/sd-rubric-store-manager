@@ -2,17 +2,21 @@ const Sale = require('../models/Sale');
 
 const add = async (req, res) => {
   try {
-    res.status(200).json(await Sale.add(req.body));
+    const sale = await Sale.add(req.body);
+
+    return res.status(200).json(sale);
   } catch (error) {
-    return res.status(500).json({ err: { message: 'Fatal error' } });
+    return res.status(500).json({ err: { message: 'Fatal Error' } });
   }
 };
 
 const getAll = async (req, res) => {
   try {
-    res.status(200).json({ sales: await Sale.getAll() });
+    const sales = await Sale.getAll();
+
+    return res.status(200).json({ sales });
   } catch (error) {
-    return res.status(500).json({ err: { message: 'Fatal error' } });
+    return res.status(500).json({ err: { message: 'Fatal Error' } });
   }
 };
 
@@ -22,30 +26,45 @@ const show = async (req, res) => {
 
     if (sale) return res.status(200).json(sale);
 
-    res.status(404).json({ code: 'not_found', message: 'Sale not found' });
+    const err = {
+      code: 'not_found',
+      message: 'Sale not found',
+    };
+    return res.status(404).json({ err });
   } catch (error) {
-    return res.status(500).json({ err: { message: 'Fatal error' } });
+    return res.status(500).json({ err: { message: 'Fatal Error' } });
   }
 };
 
 const edit = async (req, res) => {
   try {
-    await Sale.edit(req.params, req.body);
-    show(req, res);
+    const { id } = req.params;
+
+    await Sale.edit(id, req.body);
+
+    return show(req, res);
   } catch (error) {
-    return res.status(500).json({ err: { message: 'Fatal error' } });
+    return res.status(500).json({ err: { message: 'Fatal Error' } });
   }
 };
 
 const remove = async (req, res) => {
   try {
     const { id } = req.params;
+    const existsSale = await Sale.show(id);
 
-    if (!await Sale.show(id)) return res.status(422).json({ code: 'invalid_data', message: 'Wrong sale ID format' });
-    await show(req, res);
-    await Sale.remove(id);
+    if (!existsSale) {
+      const err = {
+        code: 'invalid_data',
+        message: 'Wrong sale ID format',
+      };
+      return res.status(422).json({ err });
+    } else {
+      await show(req, res);
+      return await Sale.remove(id);
+    }
   } catch (error) {
-    return res.status(500).json({ err: { message: 'Fatal error' } });
+    return res.status(500).json({ err: { message: 'Fatal Error' } });
   }
 };
 
