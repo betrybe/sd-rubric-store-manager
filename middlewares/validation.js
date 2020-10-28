@@ -42,6 +42,7 @@ const checkQuantityNumber = (arrQuantity) => arrQuantity.map(({ quantity }) => t
 const isValidQuantity = (req, res, next) => {
   let quantityArr = [];
   let isSales;
+  
 
   if (req.baseUrl === '/sales') {
     isSales = true;
