@@ -60,7 +60,6 @@ const remove = async (req, res) => {
       };
       return res.status(422).json({ err });
     }
-    
     await show(req, res);
     return await Sale.remove(id);
   } catch (error) {
