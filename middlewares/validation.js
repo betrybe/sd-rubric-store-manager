@@ -42,17 +42,16 @@ const checkQuantityNumber = (arrQuantity) => arrQuantity.map(({ quantity }) => t
 const mountArr = (isSales, reqData) => {
   let quantityArr = [];
 
-  if(isSales) quantityArr = reqData.map(({ quantity }) => ({ quantity }));
+  if( isSales) quantityArr = reqData.map(({ quantity }) => ({ quantity }));
   else quantityArr.push({ quantity: reqData.quantity });
- 
   return quantityArr;
 };
 
-const mountMessage = (isSales, msg) => isSales ? 'Wrong product ID or invalid quantity' : msg;
+const mountMessage = (isSales, msg) => (isSales ? 'Wrong product ID or invalid quantity' : msg);
 
 const isValidQuantity = (req, res, next) => {
   const data = req.body;
-  let isSales = req.baseUrl === '/sales';
+  const isSales = req.baseUrl === '/sales';
   const quantityArr = mountArr(isSales, data);
 
   let message = mountMessage(isSales, '"quantity" must be a number');
