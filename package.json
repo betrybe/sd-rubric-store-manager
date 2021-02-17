@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --runInBand",
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json .",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
